@@ -1,5 +1,5 @@
-// mealsSlice.js
 import { createSlice } from '@reduxjs/toolkit';
+
 export const mealsSlice = createSlice({
   name: 'meals',
   initialState: [
@@ -10,9 +10,15 @@ export const mealsSlice = createSlice({
   ],
   reducers: {
     toggleMealSelection: (state, action) => {
-        state[action.payload].selected = !state[action.payload].selected;
+      // Expect action.payload to be the index of the meal
+      const index = action.payload;
+      if (typeof index === 'number' && index >= 0 && index < state.length) {
+        state[index].selected = !state[index].selected;
+      }
     },
   },
 });
+
 export const { toggleMealSelection } = mealsSlice.actions;
+
 export default mealsSlice.reducer;
